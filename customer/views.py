@@ -95,9 +95,7 @@ class Cartviewset(ModelViewSet):
     queryset=Cart.objects.all()
     authentication_classes=[authentication.TokenAuthentication]
     permission_classes=[permissions.IsAuthenticated]
-    def create(self,request):
-        ser=cartser(data=request.data)
-        if ser.is_valid():
-            ser.save(user=self.request.user)
-            return Response({"msg":"ok"})
-        return Response(data=ser.errors)
+    def create(self,request,*args,**kwargs):
+        id=kwargs.get("pk")
+        Cart.objects.filter(id=id).create()
+        return Response({"msg":"addes to cart"})

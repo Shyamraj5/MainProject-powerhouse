@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'owner',
     'customer',
     'rest_framework.authtoken',
-     "corsheaders",
+    "corsheaders",
 
 ]
 

@@ -34,7 +34,7 @@ class itemRating(serializers.ModelSerializer):
     
     class Meta:
         model=Itemrating
-        fields="__all__"
+        fields=[""]
 
 class serviceRating(serializers.ModelSerializer):  
     user=serializers.CharField(read_only=True)
@@ -58,4 +58,4 @@ class cartser(serializers.ModelSerializer):
     
     class Meta:
         model=Cart
-        fields="__all__"
+        fields="[]"
