@@ -3,8 +3,8 @@ from rest_framework.viewsets import ViewSet,ModelViewSet
 from .models import  *
 from .serializers import *
 from rest_framework.response import Response
-from rest_framework import permissions,authentication
-
+from rest_framework import permissions,authentication,status
+from rest_framework.decorators import action
 # Create your views here.
 class CPurchaseViewSet(ModelViewSet):
     queryset = C_Orders.objects.all()
@@ -95,7 +95,24 @@ class Cartviewset(ModelViewSet):
     queryset=Cart.objects.all()
     authentication_classes=[authentication.TokenAuthentication]
     permission_classes=[permissions.IsAuthenticated]
-    def create(self,request,*args,**kwargs):
-        id=kwargs.get("pk")
-        Cart.objects.filter(id=id).create()
-        return Response({"msg":"addes to cart"})
+    def get_queryset(self,**kwargs):
+ 
+
+        
+        return Cart.objects.filter(user=self.request.user)
+
+    # def create(self,request,*args,**kwargs):
+    #     id=kwargs.get("pk")
+    #     Cart.objects.filter(id=id).create()
+    #     return Response({"msg":"addes to cart"})
+    @action(detail=True,methods=["post"])
+    def add_cart(self,req,*args,**kwargs):
+        id =kwargs.get("pk")
+        cp=CustomerProduct.objects.get(id=id)
+        user=req.user
+        ser=cartser(data=req.data,context={"user":user,"cartP":cp})
+        if ser.is_valid():
+            ser.save()
+            return Response ({"msg":"Added"})
+        else:
+            return Response({"MSG":ser.erros},status=status.HTTP_100_CONTINUE)

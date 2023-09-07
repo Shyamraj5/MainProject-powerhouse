@@ -51,11 +51,13 @@ class complaintRating(serializers.ModelSerializer):
         model=Complaintrating
         fields="__all__"
 
+
 class cartser(serializers.ModelSerializer):  
     user=serializers.CharField(read_only=True)
-    # product=serializers.CharField(read_only=True)
+    product=serializers.CharField(read_only=True)
     
     
     class Meta:
         model=Cart
-        fields="[]"
+        fields="__all__"
+

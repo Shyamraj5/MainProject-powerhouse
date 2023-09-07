@@ -8,7 +8,7 @@ class signupser(serializers.ModelSerializer):
         model=User
         fields=["username","email","password"]
     def create(self, validated_data):
-        return User.objects.create_superuser(**validated_data)
+        return User.objects.create_user(**validated_data)
     
 
 class C_prodSer(serializers.ModelSerializer):
@@ -22,3 +22,10 @@ class InventorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Inventory
         fields = '__all__'
+
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'is_superuser']

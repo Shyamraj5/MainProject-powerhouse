@@ -13,17 +13,21 @@ class C_Orders(models.Model):
 
 
 
-class Cart(models.Model):
-    product=models.ForeignKey(CustomerProduct,on_delete=models.CASCADE)
-    user=models.ForeignKey(User,on_delete=models.CASCADE)
-    quantity=models.IntegerField()
-    date=models.DateField(auto_now_add=True)
-    status=models.CharField(max_length=100,default="cart")
 
+    
+class Cart(models.Model):
+    product = models.ForeignKey(CustomerProduct, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+    
     @property
     def totalamt(self):
-        cnt=self.product.product_price*self.quantity
+        cnt=self.product.price*self.quantity
         return cnt 
+    
+
+
+
 class complaints(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     complaint=models.CharField(max_length=500)
