@@ -5,6 +5,7 @@ from .serializers import *
 from rest_framework.response import Response
 from rest_framework import permissions,authentication,status
 from rest_framework.decorators import action
+from rest_framework.authtoken.models import Token
 # Create your views here.
 class CPurchaseViewSet(ModelViewSet):
     queryset = C_Orders.objects.all()
@@ -33,7 +34,13 @@ class complaintView(ModelViewSet):
             return Response({"msg":"ok"})
         return Response(data=ser.errors)
     def get_queryset(self):
-        return complaints.objects.filter(user=self.request.user)  
+
+        
+            return complaints.objects.filter(user=self.request.user)
+        
+
+ 
+
     
 
 
@@ -100,19 +107,36 @@ class Cartviewset(ModelViewSet):
 
         
         return Cart.objects.filter(user=self.request.user)
+    
 
-    # def create(self,request,*args,**kwargs):
-    #     id=kwargs.get("pk")
-    #     Cart.objects.filter(id=id).create()
-    #     return Response({"msg":"addes to cart"})
-    @action(detail=True,methods=["post"])
-    def add_cart(self,req,*args,**kwargs):
-        id =kwargs.get("pk")
+    
+  
+    
+    def create(self,request,*args,**kwargs):
+        
+        id=request.data.get('product')
+        # id=kwargs.get("product_id")
+        print(id)
         cp=CustomerProduct.objects.get(id=id)
-        user=req.user
-        ser=cartser(data=req.data,context={"user":user,"cartP":cp})
-        if ser.is_valid():
-            ser.save()
-            return Response ({"msg":"Added"})
-        else:
-            return Response({"MSG":ser.erros},status=status.HTTP_100_CONTINUE)
+        Cart.objects.create(product=cp,user=self.request.user)
+        return Response({"msg":"addes to cart"})
+    
+
+
+    def destroy(self,request,*args,**kwargs):
+            id=kwargs.get("pk")
+            Cart.objects.filter(id=id).delete()
+            return Response({"msg":"Deleted"})
+
+
+    # @action(detail=True,methods=["post"])
+    # def add_cart(self,req,*args,**kwargs):
+    #     id = req.POST.get('product_id')
+    #     cp=CustomerProduct.objects.get(id=id)
+    #     user=req.user
+    #     ser=cartser(data=req.data)
+    #     if ser.is_valid():
+    #         ser.save(user=user,product=cp)
+    #         return Response ({"msg":"Added"})
+    #     else:
+    #         return Response({"MSG":ser.errors},status=status.HTTP_100_CONTINUE)

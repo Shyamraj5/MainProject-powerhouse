@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from.models import*
 from django.contrib.auth.models import User
+from owner.serializers import C_prodSer
 
 
 
@@ -52,12 +53,19 @@ class complaintRating(serializers.ModelSerializer):
         fields="__all__"
 
 
-class cartser(serializers.ModelSerializer):  
-    user=serializers.CharField(read_only=True)
-    product=serializers.CharField(read_only=True)
+# class cartser(serializers.ModelSerializer):  
+#     user=serializers.CharField(read_only=True)
+  
     
     
-    class Meta:
-        model=Cart
-        fields="__all__"
+#     class Meta:
+#         model=Cart
+#         fields="__all__"
 
+class cartser(serializers.ModelSerializer):
+    user=serializers.CharField(read_only=True)
+    quantity=serializers.CharField(read_only=True)
+    product=C_prodSer()
+    class Meta:
+        model = Cart
+        fields ="__all__"

@@ -15,6 +15,7 @@ router.register('itemRateing', itemRateingview,basename='itemrate'),
 router.register('serviceRateing', serviceRateingview,basename='serrate'),
 router.register('complaintRateing', complaintRateingview,basename='comprate'),
 router.register('cart', Cartviewset,basename='cart'),
+
 urlpatterns = [
      path('token',views.obtain_auth_token)
    
