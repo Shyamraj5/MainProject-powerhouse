@@ -1,15 +1,23 @@
 from rest_framework import serializers
 from.models import*
 from django.contrib.auth.models import User
-from owner.serializers import C_prodSer
+from owner.serializers import *
 
 
 
 class CustSerializer(serializers.ModelSerializer):
     user=serializers.CharField(read_only=True)
     date=serializers.CharField(read_only=True)
-    
-    
+    product=C_prodSer().read_only=True
+    class Meta:
+        model=C_Orders
+        fields = '__all__'
+
+
+class getorderser(serializers.ModelSerializer):
+    user=serializers.CharField(read_only=True)
+    date=serializers.CharField(read_only=True)
+    product=C_prodSer()
     class Meta:
         model=C_Orders
         fields = '__all__'

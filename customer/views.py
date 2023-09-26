@@ -14,13 +14,27 @@ class CPurchaseViewSet(ModelViewSet):
     permission_classes=[permissions.IsAuthenticated]
     
     def create(self,request):
-        ser=CustSerializer(data=request.data)
-        if ser.is_valid():
-            ser.save(user=request.user)
-            return Response({"msg":"ok"})
-        return Response(data=ser.errors)
+            ser=CustSerializer(data=request.data)
+            if ser.is_valid():
+                ser.save(user=request.user)
+                return Response({"msg":"ok"})
+            return Response(data=ser.errors)
+    
+    # def get_queryset(self):
+    #     return C_Orders.objects.filter(user=self.request.user)
+    def destroy(self,request,*args,**kwargs):
+            id=kwargs.get("pk")
+            C_Orders.objects.filter(id=id).delete()
+            return Response({"msg":"Deleted"})
+
+class getorder(ModelViewSet):
+    queryset = C_Orders.objects.all()
+    serializer_class = getorderser
+    authentication_classes=[authentication.TokenAuthentication]
+    permission_classes=[permissions.IsAuthenticated]
     def get_queryset(self):
-        return CustomerProduct.objects.filter(user=self.request.user)
+        return C_Orders.objects.filter(user=self.request.user)
+    
 
 class complaintView(ModelViewSet):
     serializer_class=complaintser

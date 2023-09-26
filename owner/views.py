@@ -10,6 +10,7 @@ from django.shortcuts import render
 from .serializers import *
 from rest_framework.viewsets import ModelViewSet, ViewSet
 from rest_framework import authentication, permissions
+from customer.serializers import*
 # Create your views here.
 # class SignUpView(ViewSet):
 #     def create(self,request,*args,**kwargs):
@@ -47,3 +48,13 @@ class InventoryViewSet(ModelViewSet):
     serializer_class = InventorySerializer
     authentication_classes = [authentication.TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
+
+
+class getallservice(ModelViewSet):
+    serializer_class=serviceser
+    queryset=services.objects.all()
+    authentication_classes=[authentication.TokenAuthentication]
+    permission_classes=[permissions.IsAuthenticated]
+    
+    def get_queryset(self):
+        return services.objects.all()

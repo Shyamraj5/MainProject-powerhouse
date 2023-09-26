@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class CustomerProduct(models.Model):
+    
     options={
         ('Tubular','Tubular'),
         ('Automotive','Automotive'),
@@ -14,6 +15,8 @@ class CustomerProduct(models.Model):
     product_name=models.CharField(max_length=100)
     price=models.IntegerField(null=True)
     image = models.ImageField(upload_to='product_images', null=True, blank=True)
+    description=models.CharField(max_length=111,blank=True)
+
 
 
 
