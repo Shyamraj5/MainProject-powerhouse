@@ -58,3 +58,12 @@ class getallservice(ModelViewSet):
     
     def get_queryset(self):
         return services.objects.all()
+    
+class getallcomp(ModelViewSet):
+    serializer_class=complaintser
+    queryset=complaints.objects.all()
+    authentication_classes=[authentication.TokenAuthentication]
+    permission_classes=[permissions.IsAuthenticated]
+    
+    def get_queryset(self):
+        return complaints.objects.all()

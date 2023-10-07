@@ -77,3 +77,9 @@ class cartser(serializers.ModelSerializer):
     class Meta:
         model = Cart
         fields ="__all__"
+
+
+class AdminResponseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AdminResponse
+        fields = '__all__'

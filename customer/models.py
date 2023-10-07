@@ -66,3 +66,15 @@ class Servicerating(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     service = models.ForeignKey(services,on_delete=models.CASCADE,null=True)
     rating = models.PositiveIntegerField()
+
+
+class AdminResponse(models.Model):
+    options = (
+        (' q', 'thank you for your response'),
+        ('service engineer on the way', 'service engineer on the way'),
+        ('having some delay come after a day', 'having some delay come after a day'),
+    )
+    response = models.CharField(max_length=100, choices=options)
+    complaint = models.ForeignKey(complaints, on_delete=models.CASCADE,null=True)
+    service = models.ForeignKey(services, on_delete=models.CASCADE,null=True)
+    

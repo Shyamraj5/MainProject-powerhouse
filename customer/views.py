@@ -129,7 +129,7 @@ class Cartviewset(ModelViewSet):
     def create(self,request,*args,**kwargs):
         
         id=request.data.get('product')
-        # id=kwargs.get("product_id")
+       
         print(id)
         cp=CustomerProduct.objects.get(id=id)
         Cart.objects.create(product=cp,user=self.request.user)
@@ -143,14 +143,20 @@ class Cartviewset(ModelViewSet):
             return Response({"msg":"Deleted"})
 
 
-    # @action(detail=True,methods=["post"])
-    # def add_cart(self,req,*args,**kwargs):
-    #     id = req.POST.get('product_id')
-    #     cp=CustomerProduct.objects.get(id=id)
-    #     user=req.user
-    #     ser=cartser(data=req.data)
-    #     if ser.is_valid():
-    #         ser.save(user=user,product=cp)
-    #         return Response ({"msg":"Added"})
-    #     else:
-    #         return Response({"MSG":ser.errors},status=status.HTTP_100_CONTINUE)
+    
+   
+
+
+class AdminResponseViewSet(ModelViewSet):
+    queryset = AdminResponse.objects.all()
+    serializer_class = AdminResponseSerializer
+    authentication_classes=[authentication.TokenAuthentication]
+    permission_classes=[permissions.IsAuthenticated]
+    def create(self,request,*args,**kwargs):
+        
+        id=request.data.get('service')
+        # id=kwargs.get("product_id")
+        print(id)
+        res=services.objects.get(id=id)
+        AdminResponse.objects.create(service=res)
+        return Response({"msg":"responce"})
