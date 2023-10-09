@@ -152,11 +152,27 @@ class AdminResponseViewSet(ModelViewSet):
     serializer_class = AdminResponseSerializer
     authentication_classes=[authentication.TokenAuthentication]
     permission_classes=[permissions.IsAuthenticated]
-    def create(self,request,*args,**kwargs):
-        
+
+
+    def create(self,request):
         id=request.data.get('service')
-        # id=kwargs.get("product_id")
+        
         print(id)
-        res=services.objects.get(id=id)
-        AdminResponse.objects.create(service=res)
-        return Response({"msg":"responce"})
+        service=services.objects.get(id=id)
+        service_id=service.id
+        response=request.data.get('response')
+        
+        ser=AdminResponseSerializer(data={"service":service_id,"response":response})
+        if ser.is_valid():
+            ser.save()
+            return Response({"msg":"ok"})
+        return Response(data=ser.errors)
+    
+
+    # @action(detail=True, methods=['get']) 
+def get_res(req):
+    ser=serviceser()
+    print(ser)
+        
+        
+    return AdminResponse.objects.filter()

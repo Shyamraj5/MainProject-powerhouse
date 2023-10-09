@@ -80,6 +80,7 @@ class cartser(serializers.ModelSerializer):
 
 
 class AdminResponseSerializer(serializers.ModelSerializer):
+    service=serviceser().read_only
     class Meta:
         model = AdminResponse
-        fields = '__all__'
+        fields = "__all__"

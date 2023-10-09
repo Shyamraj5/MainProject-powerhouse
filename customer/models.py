@@ -49,6 +49,7 @@ class services(models.Model):
     date=models.DateField(auto_now=True)
     place=models.CharField(max_length=100,null=True)
     phone=models.IntegerField(null=True)
+    response=models.ForeignKey()
 
 class Itemrating(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
@@ -69,12 +70,13 @@ class Servicerating(models.Model):
 
 
 class AdminResponse(models.Model):
+    
     options = (
-        (' q', 'thank you for your response'),
+        ('thank you for your response', 'thank you for your response'),
         ('service engineer on the way', 'service engineer on the way'),
         ('having some delay come after a day', 'having some delay come after a day'),
     )
-    response = models.CharField(max_length=100, choices=options)
-    complaint = models.ForeignKey(complaints, on_delete=models.CASCADE,null=True)
+    response = models.CharField(max_length=500, choices=options)
+   
     service = models.ForeignKey(services, on_delete=models.CASCADE,null=True)
     

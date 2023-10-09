@@ -20,8 +20,12 @@ router.register('getallser', getallservice,basename='allservi'),
 router.register('getallser', getallcomp,basename='allservi'),
 router.register('adminresponce', AdminResponseViewSet,basename='admin'),
 
+
+
+
 urlpatterns = [
-     path('token',views.obtain_auth_token)
+     path('token',views.obtain_auth_token),
+     path('getres',get_res,name="getres")
    
     
     
