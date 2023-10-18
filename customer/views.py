@@ -152,7 +152,7 @@ class AdminResponseViewSet(ModelViewSet):
     serializer_class = AdminResponseSerializer
     authentication_classes=[authentication.TokenAuthentication]
     permission_classes=[permissions.IsAuthenticated]
-
+    ser=serviceser()
 
     def create(self,request):
         id=request.data.get('service')
@@ -168,11 +168,15 @@ class AdminResponseViewSet(ModelViewSet):
             return Response({"msg":"ok"})
         return Response(data=ser.errors)
     
+     
+     
+    def get_queryset(self):
+        user = self.request.user  
+        return AdminResponse.objects.filter(service__user=user)
+    
 
-    # @action(detail=True, methods=['get']) 
-def get_res(req):
-    ser=serviceser()
-    print(ser)
-        
-        
-    return AdminResponse.objects.filter()
+    def destroy(self,request,*args,**kwargs):
+            id=kwargs.get("pk")
+            AdminResponse.objects.filter(id=id).delete()
+            return Response({"msg":"Deleted"})
+

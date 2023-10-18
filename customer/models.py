@@ -1,5 +1,4 @@
 from django.db import models
-
 from owner.models import *
 from django.contrib.auth.models import User
 # Create your models here.
@@ -49,7 +48,7 @@ class services(models.Model):
     date=models.DateField(auto_now=True)
     place=models.CharField(max_length=100,null=True)
     phone=models.IntegerField(null=True)
-    response=models.ForeignKey()
+    
 
 class Itemrating(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)

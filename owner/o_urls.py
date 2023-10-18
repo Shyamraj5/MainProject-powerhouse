@@ -17,7 +17,7 @@ router.register('complaintRateing', complaintRateingview,basename='comprate'),
 router.register('cart', Cartviewset,basename='cart'),
 router.register('getorder', getorder,basename='getor'),
 router.register('getallser', getallservice,basename='allservi'),
-router.register('getallser', getallcomp,basename='allservi'),
+router.register('getallcomp', getallcomp,basename='allservi'),
 router.register('adminresponce', AdminResponseViewSet,basename='admin'),
 
 
@@ -25,7 +25,7 @@ router.register('adminresponce', AdminResponseViewSet,basename='admin'),
 
 urlpatterns = [
      path('token',views.obtain_auth_token),
-     path('getres',get_res,name="getres")
+     
    
     
     
