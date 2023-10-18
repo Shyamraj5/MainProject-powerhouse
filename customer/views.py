@@ -180,3 +180,14 @@ class AdminResponseViewSet(ModelViewSet):
             AdminResponse.objects.filter(id=id).delete()
             return Response({"msg":"Deleted"})
 
+
+class NotificationViewSet(ModelViewSet):
+    queryset = AdminResponse.objects.all()
+    serializer_class = AdminResponseSerializer
+
+    @action(detail=False, methods=['GET'])
+    def unread_count(self, request):
+        user = self.request.user  # Assuming you're using Django's built-in User model
+        unread_count = AdminResponse.objects.filter( is_read=False).count()
+        print(unread_count)
+        return Response({ unread_count})

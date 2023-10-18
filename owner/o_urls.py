@@ -19,6 +19,7 @@ router.register('getorder', getorder,basename='getor'),
 router.register('getallser', getallservice,basename='allservi'),
 router.register('getallcomp', getallcomp,basename='allservi'),
 router.register('adminresponce', AdminResponseViewSet,basename='admin'),
+router.register('countnoti', NotificationViewSet,basename='admin'),
 
 
 

@@ -78,4 +78,5 @@ class AdminResponse(models.Model):
     response = models.CharField(max_length=500, choices=options)
    
     service = models.ForeignKey(services, on_delete=models.CASCADE,null=True)
+    is_read = models.BooleanField(default=False)
     
