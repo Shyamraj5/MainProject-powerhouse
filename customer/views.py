@@ -1,11 +1,13 @@
 from django.shortcuts import render
 from rest_framework.viewsets import ViewSet,ModelViewSet
+from rest_framework.views import APIView
 from .models import  *
 from .serializers import *
 from rest_framework.response import Response
 from rest_framework import permissions,authentication,status
 from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
+from rest_framework import status
 # Create your views here.
 class CPurchaseViewSet(ModelViewSet):
     queryset = C_Orders.objects.all()
@@ -180,14 +182,28 @@ class AdminResponseViewSet(ModelViewSet):
             AdminResponse.objects.filter(id=id).delete()
             return Response({"msg":"Deleted"})
 
-
-class NotificationViewSet(ModelViewSet):
-    queryset = AdminResponse.objects.all()
-    serializer_class = AdminResponseSerializer
-
-    @action(detail=False, methods=['GET'])
-    def unread_count(self, request):
+    @action(detail=False, methods=['GET'])      
+    def counts(self, request):
         user = self.request.user  # Assuming you're using Django's built-in User model
-        unread_count = AdminResponse.objects.filter( is_read=False).count()
+        unread_count = AdminResponse.objects.filter(is_read=False,service__user=user).count()
         print(unread_count)
-        return Response({ unread_count})
+        return Response({unread_count})
+
+
+# class NotificationViewSet(APIView):
+#     def get(self, request):
+        
+        
+#             user_response_count = AdminResponse.objects.filter().count()
+#             return Response({"user_response_count": user_response_count}, status=status.HTTP_200_OK)
+# class NotificationViewSet(ModelViewSet):
+#     queryset = AdminResponse.objects.all()
+#     serializer_class = AdminResponseSerializer
+#     authentication_classes=[authentication.TokenAuthentication]
+#     permission_classes=[permissions.IsAuthenticated]
+
+#     def get_queryset(self, request):
+#         user = self.request.user  # Assuming you're using Django's built-in User model
+#         unread_count = AdminResponse.objects.filter(is_read=False,service__user=user).count()
+#         print(unread_count)
+#         return Response({unread_count,user.username})

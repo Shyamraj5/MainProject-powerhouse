@@ -18,15 +18,17 @@ router.register('cart', Cartviewset,basename='cart'),
 router.register('getorder', getorder,basename='getor'),
 router.register('getallser', getallservice,basename='allservi'),
 router.register('getallcomp', getallcomp,basename='allservi'),
-router.register('adminresponce', AdminResponseViewSet,basename='admin'),
-router.register('countnoti', NotificationViewSet,basename='admin'),
+router.register('adminresponce',AdminResponseViewSet,basename='admin'),
+# router.register('cnt',AdminResponseViewSet/counts,basename='s'),
+# router.register('notifications', NotificationViewSet, basename='unread-count')
+# router.register('countnoti', NotificationViewSet,basename='admin'),
 
 
 
 
 urlpatterns = [
      path('token',views.obtain_auth_token),
-     
+     # path('countnoti/', NotificationViewSet.as_view(), name='unread-count'),
    
     
     

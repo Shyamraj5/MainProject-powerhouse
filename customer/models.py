@@ -69,7 +69,8 @@ class Servicerating(models.Model):
 
 
 class AdminResponse(models.Model):
-    
+
+   
     options = (
         ('thank you for your response', 'thank you for your response'),
         ('service engineer on the way', 'service engineer on the way'),
@@ -79,4 +80,4 @@ class AdminResponse(models.Model):
    
     service = models.ForeignKey(services, on_delete=models.CASCADE,null=True)
     is_read = models.BooleanField(default=False)
-    
+    user = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
